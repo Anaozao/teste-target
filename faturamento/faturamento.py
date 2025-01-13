@@ -7,7 +7,9 @@ def relatorio_faturamento(report):
             revenue = json.load(file)
 
         valid_days = [
-            day for day in revenue if isinstance(day, (int, float)) and day > 0
+            day["valor"]
+            for day in revenue
+            if isinstance(day["valor"], (int, float)) and day["valor"] > 0
         ]
 
         if not valid_days:
@@ -32,3 +34,7 @@ def relatorio_faturamento(report):
         return "Erro ao processar o arquivo JSON. Verifique o formato do arquivo."
     except Exception as e:
         return f"Ocorreu um erro inesperado: {e}"
+
+
+if __name__ == "__main__":
+    print(relatorio_faturamento("faturamento/dados.json"))
